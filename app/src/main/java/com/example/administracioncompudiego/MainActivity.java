@@ -17,13 +17,25 @@ import android.view.MenuItem;
 import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
+
     Button nuevo;
+    Button nuevoPresupuesto;
     Button consulta;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        nuevoPresupuesto = (Button)findViewById(R.id.button3);
+        nuevoPresupuesto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent1 = new Intent (v.getContext(), NuevoPresupuesto.class);
+                startActivityForResult(intent1, 1);
+            }
+        });
 
         nuevo = (Button)findViewById(R.id.button);
         nuevo.setOnClickListener(new View.OnClickListener() {

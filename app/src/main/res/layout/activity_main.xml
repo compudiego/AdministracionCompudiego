@@ -18,11 +18,19 @@
         tools:layout_margin="25dp" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/button3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
         tools:layout_margin="25dp"
-        android:text="Consultar" />
+        android:text="Nuevo Presupuesto" />
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            tools:layout_margin="25dp"
+            android:text="Consultar" />
     </LinearLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
