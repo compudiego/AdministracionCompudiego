@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "837916953052",
+    "firebase_url": "https://administracioncompudiego.firebaseio.com",
+    "project_id": "administracioncompudiego",
+    "storage_bucket": "administracioncompudiego.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:837916953052:android:2fa8895612fc7b49ace719",
+        "android_client_info": {
+          "package_name": "com.example.administracioncompudiego"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "837916953052-ocmb49hc8b3smigmael2g8oq9s6k0se8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBSUMR3gm7eW6gfOtrbebfAtrGWTiKkHVc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "837916953052-ocmb49hc8b3smigmael2g8oq9s6k0se8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
