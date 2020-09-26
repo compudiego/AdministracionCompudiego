@@ -28,15 +28,10 @@ import dmax.dialog.SpotsDialog;
 public class NuevoRegistro  extends AppCompatActivity {
 
     EditText nombreT, equipoT, marcaT, modeloT, telefonoT, fallaT, datosT, contraseñaT, observacionesT, snT, dniT;
-
-    String nombre, equipo, marca, modelo, telefono, falla, datos, contraseña, observaciones, sn, dni;
+    String nombre, equipo, marca, modelo, telefono, falla, datos, contraseña, observaciones, sn, dni, num;
     AlertDialog mDialog;
-
     Button guardar;
     FirebaseFirestore db;
-    String num;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

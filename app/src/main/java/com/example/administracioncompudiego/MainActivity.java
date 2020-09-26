@@ -110,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
                         Log.d("TAG", "DocumentSnapshot successfully written!");
 
                         mDialog.dismiss();
-                        Toast.makeText(getApplicationContext(), "Sos crack", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "Mes reseteado", Toast.LENGTH_SHORT).show();
 
                     }
                 })
