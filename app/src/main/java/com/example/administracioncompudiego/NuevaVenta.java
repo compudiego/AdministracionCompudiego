@@ -25,42 +25,34 @@ import java.util.Map;
 
 import dmax.dialog.SpotsDialog;
 
-public class NuevoRegistro  extends AppCompatActivity {
+public class NuevaVenta extends AppCompatActivity {
 
-    EditText nombreT, equipoT, marcaT, modeloT, telefonoT, fallaT, datosT, contraseñaT, observacionesT, snT, dniT;
+    EditText productoT, precioT, codigoT, medioT;
 
-    String nombre, equipo, marca, modelo, telefono, falla, datos, contraseña, observaciones, sn, dni;
+    String producto, precio, codigo, medio;
     AlertDialog mDialog;
 
     Button guardar;
     FirebaseFirestore db;
     String num;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_nuevo_registro);
+        setContentView(R.layout.activity_nueva_venta);
 
         db = FirebaseFirestore.getInstance();
 
-        nombreT = (EditText)findViewById(R.id.nombre);
-        equipoT = (EditText)findViewById(R.id.equipo);
-        marcaT = (EditText)findViewById(R.id.marca);
-        modeloT = (EditText)findViewById(R.id.modelo);
-        telefonoT = (EditText)findViewById(R.id.telefono);
-        fallaT = (EditText)findViewById(R.id.falla);
-        datosT = (EditText)findViewById(R.id.datos);
-        contraseñaT = (EditText)findViewById(R.id.contraseña);
-        observacionesT = (EditText)findViewById(R.id.observaciones);
-        snT = (EditText)findViewById(R.id.serie);
-        dniT = (EditText)findViewById(R.id.dni);
+        productoT = (EditText)findViewById(R.id.producto);
+        precioT = (EditText)findViewById(R.id.precio);
+        codigoT = (EditText)findViewById(R.id.codigo);
+        medioT = (EditText)findViewById(R.id.medio);
 
-        mDialog = new SpotsDialog.Builder().setContext(NuevoRegistro.this).setMessage("Registrando entrada").setCancelable(false).build();
+        mDialog = new SpotsDialog.Builder().setContext(NuevaVenta.this).setMessage("Registrando venta").setCancelable(false).build();
 
         guardar = (Button)findViewById(R.id.guardar);
-        db.collection("ID").document("numeros").get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+
+        db.collection("ID").document("idVentas").get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 if(documentSnapshot.exists()){
@@ -78,44 +70,32 @@ public class NuevoRegistro  extends AppCompatActivity {
             public void onClick(View v) {
                 mDialog.show();
 
-                nombre = nombreT.getText().toString();
-                equipo = equipoT.getText().toString();
-                marca = marcaT.getText().toString();
-                modelo = modeloT.getText().toString();
-                telefono = telefonoT.getText().toString();
-                falla = fallaT.getText().toString();
-                datos = datosT.getText().toString();
-                contraseña = contraseñaT.getText().toString();
-                observaciones = observacionesT.getText().toString();
-                sn = snT.getText().toString();
-                dni = dniT.getText().toString();
+                producto = productoT.getText().toString();
+                precio = precioT.getText().toString();
+                codigo = codigoT.getText().toString();
+                medio = medioT.getText().toString();
 
-                String fechita = getFechaActual();
+
+                String fechaActual = getFechaActual();
 
                 Map<String, Object> map = new HashMap<>();
-                map.put("nombre", nombre);
-                map.put("equipo", equipo);
-                map.put("marca", marca);
-                map.put("modelo", modelo);
-                map.put("telefono", telefono);
-                map.put("falla", falla);
+                map.put("producto", producto);
                 map.put("id", num);
-                map.put("datos", datos);
-                map.put("contraseña",contraseña);
-                map.put("observaciones",observaciones);
-                map.put("sn",sn);
-                map.put("DNI",dni);
-                map.put("fecha", fechita);
-                db.collection("Equipos").document(num).set(map)
+                map.put("fecha", fechaActual);
+                map.put("precio", precio);
+                map.put("codigo", codigo);
+                map.put("medio", medio);
+
+                db.collection("Ventas").document(num).set(map)
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
                                 Log.d("TAG", "DocumentSnapshot successfully written!");
                                 mDialog.dismiss();
 
-                                AlertDialog alertDialog = new AlertDialog.Builder(NuevoRegistro.this).create();
-                                alertDialog.setTitle("Nueva Entrada");
-                                alertDialog.setMessage("Entrada Registrada con el id: " + num);
+                                AlertDialog alertDialog = new AlertDialog.Builder(NuevaVenta.this).create();
+                                alertDialog.setTitle("Nueva Venta");
+                                alertDialog.setMessage("Venta Registrada con el id: " + num);
                                 alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
                                         new DialogInterface.OnClickListener() {
                                             public void onClick(DialogInterface dialog, int which) {
@@ -145,7 +125,7 @@ public class NuevoRegistro  extends AppCompatActivity {
                 String numCadena= Integer.toString(numEntero);
                 Map<String, Object> map2 = new HashMap<>();
                 map2.put("num", numCadena);
-                db.collection("ID").document("numeros").set(map2)
+                db.collection("ID").document("idVentas").set(map2)
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
@@ -162,7 +142,6 @@ public class NuevoRegistro  extends AppCompatActivity {
                             }
                         });
 
-
             }
 
         });
@@ -173,8 +152,6 @@ public class NuevoRegistro  extends AppCompatActivity {
         SimpleDateFormat formateador = new SimpleDateFormat("dd-MM-yyyy");
         return formateador.format(ahora);
     }
-
-
 
 
 

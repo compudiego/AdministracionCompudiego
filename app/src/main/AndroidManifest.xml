@@ -21,6 +21,7 @@
         </activity>
         <activity android:name=".NuevoRegistro"></activity>
         <activity android:name=".NuevoPresupuesto"></activity>
+        <activity android:name=".NuevaVenta"></activity>
     </application>
 
 </manifest>

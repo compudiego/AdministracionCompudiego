@@ -31,10 +31,10 @@ public class NuevoPresupuesto extends AppCompatActivity {
 
     String id, diagnostico, repuesto, gasto, presupuesto, seña, estado, fechaRetiro, garantia, codGarantia;
     AlertDialog mDialog;
-
+    int entrada, costo, total, aux;
     Button guardar;
     FirebaseFirestore db;
-    //String num;
+    String num;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +57,7 @@ public class NuevoPresupuesto extends AppCompatActivity {
 
         guardar = (Button)findViewById(R.id.guardar);
 
-        /*db.collection("ID").document("numeros").get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+        db.collection("ID").document("acumulado").get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 if(documentSnapshot.exists()){
@@ -67,7 +67,7 @@ public class NuevoPresupuesto extends AppCompatActivity {
 
                 }
             }
-        });*/
+        });
 
         guardar.setOnClickListener(new View.OnClickListener(){
 
@@ -85,6 +85,17 @@ public class NuevoPresupuesto extends AppCompatActivity {
                 garantia = garantiaT.getText().toString();
                 codGarantia = codGarantiaT.getText().toString();
 
+                entrada = Integer.parseInt(presupuesto);
+                if(gasto.equals("")){
+                    gasto = "0";
+                }
+                costo = Integer.parseInt(gasto);
+                total = entrada - costo;
+                aux = Integer.parseInt(num);
+                total = total + aux;
+
+                String ganancia= Integer.toString(total);
+
                 String fechaActual = getFechaActual();
 
                 Map<String, Object> map = new HashMap<>();
@@ -98,6 +109,10 @@ public class NuevoPresupuesto extends AppCompatActivity {
                 map.put("fechaRetiro", fechaRetiro);
                 map.put("garantia",garantia);
                 map.put("Codigo de garantia", codGarantia);
+                map.put("Ganancia", ganancia);
+
+                final Map<String, Object> map3 = new HashMap<>();
+                map3.put("num", ganancia);
 
                 db.collection("Presupuestos").document(id).set(map)
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -106,6 +121,39 @@ public class NuevoPresupuesto extends AppCompatActivity {
                                 Log.d("TAG", "DocumentSnapshot successfully written!");
                                 mDialog.dismiss();
 
+                                db.collection("ID").document("acumulado").set(map3).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        Log.d("TAG", "DocumentSnapshot successfully written!");
+                                        mDialog.dismiss();
+
+                                        AlertDialog alertDialog = new AlertDialog.Builder(NuevoPresupuesto.this).create();
+                                        alertDialog.setTitle("Nueva Entrada");
+                                        alertDialog.setMessage("Presupuesto Registrado con el id: " + id);
+                                        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                                                new DialogInterface.OnClickListener() {
+                                                    public void onClick(DialogInterface dialog, int which) {
+                                                        Intent intent1 = new Intent (getApplicationContext(), MainActivity.class);
+                                                        startActivityForResult(intent1, 1);
+                                                        dialog.dismiss();
+                                                    }
+                                                });
+
+                                        alertDialog.show();
+
+
+
+                                    }
+                                })
+                                        .addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                mDialog.dismiss();
+                                                Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_SHORT).show();
+
+                                                Log.w("TAG", "Error writing document", e);
+                                            }
+                                        });
                                 AlertDialog alertDialog = new AlertDialog.Builder(NuevoPresupuesto.this).create();
                                 alertDialog.setTitle("Nueva Entrada");
                                 alertDialog.setMessage("Presupuesto Registrado con el id: " + id);
