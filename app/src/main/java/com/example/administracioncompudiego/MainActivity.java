@@ -62,6 +62,14 @@ public class MainActivity extends AppCompatActivity {
                 startActivityForResult(intent1, 1);
             }
         });
+        consulta = (Button)findViewById(R.id.button2);
+        consulta.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent1 = new Intent (v.getContext(), Consulta.class);
+                startActivityForResult(intent1, 1);
+            }
+        });
 
         nuevo = (Button)findViewById(R.id.button);
         nuevo.setOnClickListener(new View.OnClickListener() {
