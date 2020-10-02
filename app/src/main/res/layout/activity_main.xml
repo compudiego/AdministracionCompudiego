@@ -17,6 +17,15 @@
                 android:layout_height="wrap_content"
                 android:padding="25dp"
                 android:orientation="vertical">
+                <Button
+                    android:id="@+id/button0"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:ems="10"
+                    android:padding="25dp"
+                    android:text="Nuevo Cliente" />
 
 
                 <Button

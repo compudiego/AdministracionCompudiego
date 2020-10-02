@@ -28,6 +28,7 @@
         <activity android:name="Presupuestos"></activity>
         <activity android:name="Total"></activity>
         <activity android:name="Ventas"></activity>
+        <activity android:name=".Cliente"></activity>
         
     </application>
 

@@ -109,7 +109,7 @@ public class NuevoPresupuesto extends AppCompatActivity {
                 map.put("fechaRetiro", fechaRetiro);
                 map.put("garantia",garantia);
                 map.put("Codigo de garantia", codGarantia);
-                map.put("Ganancia", ganancia);
+
 
                 final Map<String, Object> map3 = new HashMap<>();
                 map3.put("num", ganancia);

@@ -33,7 +33,7 @@ import dmax.dialog.SpotsDialog;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button nuevo, nuevoPresupuesto, consulta, nuevaVenta, resetear;
+    Button nuevo, nuevoPresupuesto, consulta, nuevaVenta, resetear, cliente;
     String num;
     AlertDialog mDialog;
     @Override
@@ -54,6 +54,15 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+        cliente = (Button)findViewById(R.id.button0);
+        cliente.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent1 = new Intent (v.getContext(), Cliente.class);
+                startActivityForResult(intent1, 1);
+            }
+        });
+
         nuevoPresupuesto = (Button)findViewById(R.id.button3);
         nuevoPresupuesto.setOnClickListener(new View.OnClickListener() {
             @Override
