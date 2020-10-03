@@ -84,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
         nuevo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent1 = new Intent (v.getContext(), NuevoRegistro.class);
+                Intent intent1 = new Intent (v.getContext(), Intermedio.class);
                 startActivityForResult(intent1, 1);
             }
         });

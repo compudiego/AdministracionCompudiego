@@ -30,12 +30,6 @@ public class Cliente extends AppCompatActivity {
     AlertDialog mDialog;
     FirebaseFirestore db;
 
-
-
-
-
-
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

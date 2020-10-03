@@ -93,11 +93,9 @@ public class NuevoRegistro  extends AppCompatActivity {
         String fechita = getFechaActual();
 
         Map<String, Object> map = new HashMap<>();
-        map.put("nombre", nombre);
         map.put("equipo", equipo);
         map.put("marca", marca);
         map.put("modelo", modelo);
-        map.put("telefono", telefono);
         map.put("falla", falla);
         map.put("id", num);
         map.put("datos", datos);
@@ -106,6 +104,28 @@ public class NuevoRegistro  extends AppCompatActivity {
         map.put("sn",sn);
         map.put("DNI",dni);
         map.put("fecha", fechita);
+
+        Map<String, Object> map2 = new HashMap<>();
+        map2.put("Nombre", nombre);
+        map2.put("telefono", telefono);
+        map2.put("dni", dni);
+        map2.put(num, num);
+
+        db.collection("Clientes").document(dni).set(map2)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d("TAG", "DocumentSnapshot successfully written!");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_SHORT).show();
+                        Log.w("TAG", "Error writing document", e);
+                    }
+                });
+
 
         db.collection("Equipos").document(num).set(map)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {

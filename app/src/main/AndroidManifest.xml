@@ -29,6 +29,7 @@
         <activity android:name="Total"></activity>
         <activity android:name="Ventas"></activity>
         <activity android:name=".Cliente"></activity>
+        <activity android:name=".Intermedio"></activity>
         
     </application>
 
