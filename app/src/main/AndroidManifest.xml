@@ -9,28 +9,31 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar">
+>
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity android:name=".NuevoRegistro"></activity>
         <activity android:name=".NuevoPresupuesto"></activity>
         <activity android:name=".NuevaVenta"></activity>
         <activity android:name=".Consulta"></activity>
-        <activity android:name="Equipos"></activity>;
-        <activity android:name="Mensual"></activity>
+        <activity android:name="Equipos"></activity>
         <activity android:name="Presupuestos"></activity>
-        <activity android:name="Total"></activity>
         <activity android:name="Ventas"></activity>
         <activity android:name=".Cliente"></activity>
+
         <activity android:name=".Intermedio"></activity>
-        
+        <activity android:name=".NuevoRegistroExistente"></activity>
+
+
     </application>
 
 </manifest>

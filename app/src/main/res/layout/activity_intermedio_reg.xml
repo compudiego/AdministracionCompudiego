@@ -13,36 +13,25 @@
             android:layout_height="wrap_content"
             android:padding="25dp"
             android:orientation="vertical">
-            <Button
-                android:id="@+id/clienteNuevo"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
-                android:ems="10"
-                android:padding="25dp"
-                android:text="Cliente Nuevo" />
 
 
-            <Button
-                android:id="@+id/clienteExistente"
+            <EditText
+                android:id="@+id/queryDni"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
-                android:ems="10"
-                android:padding="25dp"
-                android:text="Cliente Existente" />
+                android:hint="DNI"
+                android:inputType="number"
+                ></EditText>
 
             <Button
                 android:id="@+id/consultaCliente"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ems="10"
-                android:padding="25dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp"
-                android:text="Consultar Cliente"
+                android:ems="10"
+                android:padding="25dp"
+                android:text="Registrar"
                 tools:layout_margin="25dp" />
 
         </LinearLayout>

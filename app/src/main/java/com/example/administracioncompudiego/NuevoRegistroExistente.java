@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -25,10 +26,10 @@ import java.util.Map;
 
 import dmax.dialog.SpotsDialog;
 
-public class NuevoRegistro  extends AppCompatActivity {
+public class NuevoRegistroExistente extends AppCompatActivity {
 
-    EditText nombreT, equipoT, marcaT, modeloT, telefonoT, fallaT, datosT, contraseñaT, observacionesT, snT;
-    String nombre, equipo, marca, modelo, telefono, falla, datos, contraseña, observaciones, sn, dni, num;
+    EditText equipoT, marcaT, modeloT, fallaT, datosT, contraseñaT, observacionesT, snT;
+    String equipo, marca, modelo, falla, datos, contraseña, observaciones, sn, dni, num;
     AlertDialog mDialog;
     Button guardar;
     FirebaseFirestore db;
@@ -37,22 +38,19 @@ public class NuevoRegistro  extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_nuevo_registro);
+        setContentView(R.layout.activity_nuevo_registro_existente);
 
         db = FirebaseFirestore.getInstance();
 
-        nombreT = (EditText)findViewById(R.id.nombre);
         equipoT = (EditText)findViewById(R.id.equipo);
         marcaT = (EditText)findViewById(R.id.marca);
         modeloT = (EditText)findViewById(R.id.modelo);
-        telefonoT = (EditText)findViewById(R.id.telefono);
         fallaT = (EditText)findViewById(R.id.falla);
         datosT = (EditText)findViewById(R.id.datos);
         contraseñaT = (EditText)findViewById(R.id.contraseña);
         observacionesT = (EditText)findViewById(R.id.observaciones);
         snT = (EditText)findViewById(R.id.serie);
-
-        mDialog = new SpotsDialog.Builder().setContext(NuevoRegistro.this).setMessage("Registrando entrada").setCancelable(false).build();
+        mDialog = new SpotsDialog.Builder().setContext(NuevoRegistroExistente.this).setMessage("Registrando entrada").setCancelable(false).build();
         guardar = (Button)findViewById(R.id.guardar);
 
         db.collection("ID").document("numeros").get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
@@ -79,11 +77,9 @@ public class NuevoRegistro  extends AppCompatActivity {
     private void guardarNuevoRegistro() {
         dni = getIntent().getExtras().getString("dni");
 
-        nombre = nombreT.getText().toString();
         equipo = equipoT.getText().toString();
         marca = marcaT.getText().toString();
         modelo = modeloT.getText().toString();
-        telefono = telefonoT.getText().toString();
         falla = fallaT.getText().toString();
         datos = datosT.getText().toString();
         contraseña = contraseñaT.getText().toString();
@@ -92,7 +88,7 @@ public class NuevoRegistro  extends AppCompatActivity {
 
         String fechita = getFechaActual();
 
-        Map<String, Object> map = new HashMap<>();
+        final Map<String, Object> map = new HashMap<>();
         map.put("equipo", equipo);
         map.put("marca", marca);
         map.put("modelo", modelo);
@@ -104,60 +100,56 @@ public class NuevoRegistro  extends AppCompatActivity {
         map.put("sn",sn);
         map.put("DNI",dni);
         map.put("fecha", fechita);
+        DocumentReference washingtonRef = db.collection("Clientes").document(dni);
 
-        Map<String, Object> map2 = new HashMap<>();
-        map2.put("Nombre", nombre);
-        map2.put("telefono", telefono);
-        map2.put("dni", dni);
-        map2.put(num, num);
-
-        db.collection("Clientes").document(dni).set(map2)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
+        washingtonRef.update(num, num).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        Log.d("TAG", "DocumentSnapshot successfully written!");
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_SHORT).show();
-                        Log.w("TAG", "Error writing document", e);
-                    }
-                });
+                        Log.d("TAG", "DocumentSnapshot successfully updated!");
+                        db.collection("Equipos").document(num).set(map)
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        Log.d("TAG", "DocumentSnapshot successfully written!");
 
+                                        mDialog.dismiss();
 
-        db.collection("Equipos").document(num).set(map)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Log.d("TAG", "DocumentSnapshot successfully written!");
-                        mDialog.dismiss();
-
-                        AlertDialog alertDialog = new AlertDialog.Builder(NuevoRegistro.this).create();
-                        alertDialog.setTitle("Nueva Entrada");
-                        alertDialog.setMessage("Entrada Registrada con el id: " + num);
-                        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
-                                new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        Intent intent1 = new Intent (getApplicationContext(), MainActivity.class);
-                                        startActivityForResult(intent1, 1);
-                                        dialog.dismiss();
+                                        AlertDialog alertDialog = new AlertDialog.Builder(NuevoRegistroExistente.this).create();
+                                        alertDialog.setTitle("Nueva Entrada");
+                                        alertDialog.setMessage("Entrada Registrada con el id: " + num);
+                                        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                                                new DialogInterface.OnClickListener() {
+                                                    public void onClick(DialogInterface dialog, int which) {
+                                                        Intent intent1 = new Intent (getApplicationContext(), MainActivity.class);
+                                                        startActivityForResult(intent1, 1);
+                                                        dialog.dismiss();
+                                                    }
+                                                });
+                                        alertDialog.show();
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        mDialog.dismiss();
+                                        Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_SHORT).show();
+                                        Log.w("TAG", "Error writing document", e);
                                     }
                                 });
-                        alertDialog.show();
+
+                        sumarId();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         mDialog.dismiss();
-                        Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_SHORT).show();
-                        Log.w("TAG", "Error writing document", e);
+                        Toast.makeText(getApplicationContext(), "EL CLIENTE NO SE ENCUENTRA REGISTRADO", Toast.LENGTH_SHORT).show();
+                        Log.w("TAG", "Error updating document", e);
                     }
                 });
 
-        sumarId();
+
     }
 
     private void sumarId() {
