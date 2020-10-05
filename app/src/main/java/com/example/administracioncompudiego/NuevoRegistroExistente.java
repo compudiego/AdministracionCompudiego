@@ -29,7 +29,7 @@ import dmax.dialog.SpotsDialog;
 public class NuevoRegistroExistente extends AppCompatActivity {
 
     EditText equipoT, marcaT, modeloT, fallaT, datosT, contraseñaT, observacionesT, snT;
-    String equipo, marca, modelo, falla, datos, contraseña, observaciones, sn, dni, num;
+    String equipo, marca, modelo, falla, datos, contraseña, observaciones, sn, dni, num, nombre;
     AlertDialog mDialog;
     Button guardar;
     FirebaseFirestore db;
@@ -76,6 +76,7 @@ public class NuevoRegistroExistente extends AppCompatActivity {
 
     private void guardarNuevoRegistro() {
         dni = getIntent().getExtras().getString("dni");
+        nombre = getIntent().getExtras().getString("name");
 
         equipo = equipoT.getText().toString();
         marca = marcaT.getText().toString();
@@ -100,6 +101,7 @@ public class NuevoRegistroExistente extends AppCompatActivity {
         map.put("sn",sn);
         map.put("DNI",dni);
         map.put("fecha", fechita);
+        map.put("nombre", nombre);
         DocumentReference washingtonRef = db.collection("Clientes").document(dni);
 
         washingtonRef.update(num, num).addOnSuccessListener(new OnSuccessListener<Void>() {

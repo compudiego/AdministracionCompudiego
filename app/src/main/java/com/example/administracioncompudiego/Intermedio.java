@@ -16,7 +16,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 public class Intermedio extends AppCompatActivity {
 
-    Button nuevo, existente, consulta;
+    Button consulta;
     EditText dniT;
     String dni;
     FirebaseFirestore db;

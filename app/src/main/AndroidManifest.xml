@@ -32,6 +32,12 @@
 
         <activity android:name=".Intermedio"></activity>
         <activity android:name=".NuevoRegistroExistente"></activity>
+        <activity android:name=".IntermedioEquipos"></activity>
+        <activity android:name=".IntermedioPresupuestos"></activity>
+
+
+
+
 
 
     </application>

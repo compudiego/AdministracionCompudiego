@@ -51,14 +51,14 @@ public class Consulta extends AppCompatActivity {
         equipos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent1 = new Intent (v.getContext(), Equipos.class);
+                Intent intent1 = new Intent (v.getContext(), IntermedioEquipos.class);
                 startActivityForResult(intent1, 1);
             }
         });
         presupuestos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent1 = new Intent (v.getContext(), Presupuestos.class);
+                Intent intent1 = new Intent (v.getContext(), IntermedioPresupuestos.class);
                 startActivityForResult(intent1, 1);
             }
         });
@@ -88,14 +88,7 @@ public class Consulta extends AppCompatActivity {
                         }
                     }
                 });
-
             }
         });
-
-
-
     }
-
-
-
 }

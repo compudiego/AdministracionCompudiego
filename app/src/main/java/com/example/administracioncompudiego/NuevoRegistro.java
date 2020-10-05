@@ -104,6 +104,9 @@ public class NuevoRegistro  extends AppCompatActivity {
         map.put("sn",sn);
         map.put("DNI",dni);
         map.put("fecha", fechita);
+        map.put("nombre", nombre);
+        map.put("telefono", telefono);
+
 
         Map<String, Object> map2 = new HashMap<>();
         map2.put("Nombre", nombre);

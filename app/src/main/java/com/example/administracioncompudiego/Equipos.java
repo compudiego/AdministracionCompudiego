@@ -50,7 +50,6 @@ public class Equipos extends AppCompatActivity {
 
     public void traerEquipos(){
         db.collection("Equipos").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-            @SuppressLint("SetTextI18n")
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 if (!queryDocumentSnapshots.isEmpty()) {
@@ -67,7 +66,8 @@ public class Equipos extends AppCompatActivity {
                         insert.setLayoutParams(lp);
                         insert.setLayoutParams(lp);
 
-                        String nombre = d.getString("nombre").toUpperCase();
+
+                        String nombre = d.getString("nombre");
                         String id = d.getString("id");
                         String equipo = d.getString("equipo");
                         String falla = d.getString("falla");
@@ -102,7 +102,7 @@ class ButtonsOnClickListener implements View.OnClickListener
 
 }
     @Override
-    public void onClick(final View v)
+    public void onClick(View v)
     {
         FirebaseFirestore db;
         db = FirebaseFirestore.getInstance();
