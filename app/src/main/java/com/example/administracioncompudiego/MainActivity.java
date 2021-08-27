@@ -100,7 +100,16 @@ public class MainActivity extends AppCompatActivity {
         resetear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                reseteo(num);
+                AlertDialog.Builder alerta = new AlertDialog.Builder(MainActivity.this);
+                alerta.setMessage("¿Resetear Balance?")
+                        .setNegativeButton("No", null)
+                        .setPositiveButton("Si", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                reseteo(num);
+                            }})
+                        .create()
+                        .show();
+
             }
         });
     }
